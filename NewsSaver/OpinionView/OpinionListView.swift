@@ -47,7 +47,6 @@ struct OpinionListView: View {
                 .scaledToFit()
                 .frame(maxWidth: .infinity)
                 .clipped()
-                .alignmentGuide(.top) { d in d[.top] }
                 .padding(.horizontal, 30)
                 .padding(.vertical, 10)
             Text(news.opinion ?? "意見はありません")
