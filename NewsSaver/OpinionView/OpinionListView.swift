@@ -42,7 +42,6 @@ struct OpinionListView: View {
                     .padding(.horizontal, 15)
                 
             }
-
             Image(news.imageName)
                 .resizable()
                 .scaledToFit()
@@ -57,7 +56,7 @@ struct OpinionListView: View {
                 .padding(.horizontal, 10)
             Spacer()
         }
-        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
     }
 }
 

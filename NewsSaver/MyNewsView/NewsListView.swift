@@ -33,8 +33,26 @@ struct NewsListView: View {
                 if isSearching {
                     TextField("Search", text: $searchText)
                         .textFieldStyle(.roundedBorder)
+                        .padding(10)
+                        .overlay(
+                            HStack {
+                                Spacer()
+                                if !searchText.isEmpty {
+                                    Button(action: {
+                                        withAnimation{
+                                            searchText = ""
+                                            isSearching = false
+                                        }
+                                    }) {
+                                        Image(systemName: "xmark.circle.fill")
+                                            .foregroundStyle(.secondary)
+                                    }
+                                    .padding(.trailing, 16)
+                                }
+                            }
+                        )
                         .padding(.horizontal)
-                        .padding(.vertical, 10)
+                        .padding(.vertical, 3)
                         .background(Color.secondary.opacity(0.2))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
