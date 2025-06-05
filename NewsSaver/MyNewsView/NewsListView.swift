@@ -10,15 +10,8 @@ import SwiftUI
 struct NewsListView: View {
     @State private var searchText: String = ""
     @State private var isSearching: Bool = false
-    let newsItems: [NewsItem] = [
-        NewsItem(title: "米鉄鋼・アルミ関税2倍の50％に　トランプ氏表明、6月4日から", date:Date(), imageName: "thumbnail"),
-        NewsItem(title: "米鉄鋼・アルミ関税2倍の50％に　トランプ氏表明、6月4日から", date:Date(), imageName: "thumbnail"),
-        NewsItem(title: "米鉄鋼・アルミ関税2倍の50％に　トランプ氏表明、6月4日から", date:Date(), imageName: "thumbnail"),
-        NewsItem(title: "米鉄鋼・アルミ関税2倍の50％に　トランプ氏表明、6月4日から", date:Date(), imageName: "thumbnail"),
-        NewsItem(title: "米鉄鋼・アルミ関税2倍の50％に　トランプ氏表明、6月4日から", date:Date(), imageName: "thumbnail"),
-        NewsItem(title: "米鉄鋼・アルミ関税2倍の50％に　トランプ氏表明、6月4日から", date:Date(), imageName: "thumbnail"),
-        NewsItem(title: "米鉄鋼・アルミ関税2倍の50％に　トランプ氏表明、6月4日から", date:Date(), imageName: "thumbnail"),
-    ]
+    @State private var newsItems: [NewsItem] = []
+    
     var filteredItems: [NewsItem] {
         if searchText.isEmpty {
             return newsItems
@@ -29,25 +22,33 @@ struct NewsListView: View {
     var body: some View {
         VStack(spacing: 0) {
             MainTopBar(
-                title: "MyNews",
+                title: "My News",
                 showSearchButton: true,
                 onSearchTapped: {
                     isSearching.toggle()
                 }
             )
                 .padding(.top)
-            NavigationStack {
+         
                 if isSearching {
                     TextField("Search", text: $searchText)
                         .textFieldStyle(.roundedBorder)
                         .padding(.horizontal)
+                        .padding(.vertical, 10)
+                        .background(Color.secondary.opacity(0.2))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
                 List(filteredItems) { item in
-                    NewsRowView(news: item)
+                    NavigationLink(destination: OpinionListView(news: item)) {
+                        NewsRowView(news: item)
+                    }
                 }
                 .listStyle(.plain)
-            }
-            .navigationBarHidden(true)
+            
+            
+        }
+        .onAppear {
+            newsItems = NewsLoader.loadLocalNews()
         }
     }
 }
