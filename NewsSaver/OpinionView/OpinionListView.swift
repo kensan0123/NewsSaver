@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct OpinionListView: View {
+    @Query var newsItems: [NewsItem]
     @Environment(\.dismiss) var dismiss
     
     let news: NewsItem
@@ -42,13 +44,15 @@ struct OpinionListView: View {
                     .padding(.horizontal, 15)
                 
             }
-            Image(news.imageName)
-                .resizable()
-                .scaledToFit()
-                .frame(maxWidth: .infinity)
-                .clipped()
-                .padding(.horizontal, 30)
-                .padding(.vertical, 10)
+            if let uiImage = news.image {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: .infinity)
+                    .clipped()
+                    .padding(.horizontal, 30)
+                    .padding(.vertical, 10)
+            }
             Text(news.opinion ?? "意見はありません")
                 .font(.body)
                 .padding(.vertical, 20)
@@ -59,11 +63,6 @@ struct OpinionListView: View {
     }
 }
 
-#Preview {
-    OpinionListView(news: NewsItem (
-        title: "トヨタ、全固体電池で航続距離1000km達成へ",
-        date: Date(),
-        imageName: "thumbnail",
-        opinion: "これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。"
-    ))
-}
+//#Preview {
+//    OpinionListView()
+//}

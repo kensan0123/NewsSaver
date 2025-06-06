@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct NewsListView: View {
+    @Query var newsItems: [NewsItem]
     @State private var searchText: String = ""
     @State private var isSearching: Bool = false
-    @State private var newsItems: [NewsItem] = []
     
     var filteredItems: [NewsItem] {
         if searchText.isEmpty {
@@ -62,11 +63,6 @@ struct NewsListView: View {
                     }
                 }
                 .listStyle(.plain)
-            
-            
-        }
-        .onAppear {
-            newsItems = NewsLoader.loadLocalNews()
         }
     }
 }

@@ -6,13 +6,18 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct NewsSaveView: View {
+    @Environment(\.modelContext) private var modelContext
+    
     @State private var previewTitle: String?
     @State private var previewThumbnail: UIImage?
     @State var myopinion: String = ""
     @FocusState var isFocused: Bool
+    
     let news: NewsItem
+    
     var body: some View {
         VStack {
             MainTopBar(
@@ -47,7 +52,17 @@ struct NewsSaveView: View {
             HStack {
                 Spacer()
                 Button("保存"){
-                    isFocused = false
+                    if let thumbnail = previewThumbnail,
+                       let imageData = thumbnail.jpegData(compressionQuality: 0.8){
+                        let newItem = NewsItem(
+                            title: previewTitle ?? news.title,
+                            date: Date(),
+                            imageData: imageData,
+                            opinion: myopinion
+                            )
+                        modelContext.insert(newItem)
+                        isFocused = false
+                    }
                 }
                 .padding(.horizontal, 10)
             }
@@ -77,11 +92,6 @@ struct NewsSaveView: View {
     }
 }
 
-#Preview {
-    NewsSaveView(news: NewsItem(
-        title: "トヨタ、全固体電池で航続距離1000km達成へ",
-        date: Date(),
-        imageName: "thumbnail",
-        opinion: "これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。"
-    ))
-}
+//#Preview {
+//    NewsSaveView(news: <#NewsItem#>)
+//}

@@ -5,18 +5,26 @@
 //  Created by 中村健介 on 2025/06/03.
 //
 
+import SwiftData
 import SwiftUI
 import Foundation
 
-struct NewsItem: Identifiable, Hashable, Codable {
-    let id = UUID()
-    let title: String
+@Model
+class NewsItem {
+    var title: String
     var date: Date
-    var imageName: String
+    var imageData: Data?
     var opinion: String?
-    //var thumbnail: String のちにURL取得に変更
     
-    private enum CodingKeys: String, CodingKey {
-        case title, date, imageName, opinion
+    init(title: String, date: Date, imageData: Data, opinion: String?) {
+        self.title = title
+        self.date = date
+        self.imageData = imageData
+        self.opinion = opinion
+    }
+    
+    var image :UIImage? {
+        guard let data = imageData else { return nil }
+        return UIImage(data: data)
     }
 }
