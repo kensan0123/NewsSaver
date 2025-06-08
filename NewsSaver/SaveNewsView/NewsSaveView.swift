@@ -10,13 +10,14 @@ import SwiftData
 
 struct NewsSaveView: View {
     @Environment(\.modelContext) private var modelContext
+//    @Environment(\.dismiss) private var dismiss
     
     @State private var previewTitle: String?
     @State private var previewThumbnail: UIImage?
     @State var myopinion: String = ""
     @FocusState var isFocused: Bool
     
-    let news: NewsItem
+    let newsURL: String
     
     var body: some View {
         VStack {
@@ -55,13 +56,14 @@ struct NewsSaveView: View {
                     if let thumbnail = previewThumbnail,
                        let imageData = thumbnail.jpegData(compressionQuality: 0.8){
                         let newItem = NewsItem(
-                            title: previewTitle ?? news.title,
+                            title: previewTitle ?? "",
                             date: Date(),
                             imageData: imageData,
                             opinion: myopinion
                             )
                         modelContext.insert(newItem)
                         isFocused = false
+//                        dismiss()
                     }
                 }
                 .padding(.horizontal, 10)
@@ -75,7 +77,7 @@ struct NewsSaveView: View {
         }
         .onAppear {
             Task {
-                await getMetadata(url: "https://www.nikkei.com/article/DGXZQOGM05D2U0V00C25A6000000/")
+                await getMetadata(url: newsURL)
             }
         }
     }
@@ -92,6 +94,6 @@ struct NewsSaveView: View {
     }
 }
 
-//#Preview {
-//    NewsSaveView(news: <#NewsItem#>)
-//}
+#Preview {
+    NewsSaveView(newsURL: "https://www.nikkei.com/article/DGXZQOGM05D2U0V00C25A6000000/")
+}

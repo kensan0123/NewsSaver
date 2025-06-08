@@ -21,16 +21,17 @@ struct NewsListView: View {
         }
     }
     var body: some View {
-        VStack(spacing: 0) {
-            MainTopBar(
-                title: "My News",
-                showSearchButton: true,
-                onSearchTapped: {
-                    isSearching.toggle()
-                }
-            )
+        NavigationStack {
+            VStack(spacing: 0) {
+                MainTopBar(
+                    title: "My News",
+                    showSearchButton: true,
+                    onSearchTapped: {
+                        isSearching.toggle()
+                    }
+                )
                 .padding(.top)
-         
+                
                 if isSearching {
                     TextField("Search", text: $searchText)
                         .textFieldStyle(.roundedBorder)
@@ -63,6 +64,7 @@ struct NewsListView: View {
                     }
                 }
                 .listStyle(.plain)
+            }
         }
     }
 }

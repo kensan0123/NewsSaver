@@ -63,6 +63,14 @@ struct OpinionListView: View {
     }
 }
 
-//#Preview {
-//    OpinionListView()
-//}
+#Preview {
+    let sampleNews = NewsItem(
+        title: "サンプル記事",
+        date: Date(),
+        imageData: Data(),
+        opinion: "これは意見の例です。"
+    )
+
+    OpinionListView(news: sampleNews)
+        .modelContainer(for: NewsItem.self, inMemory: true)
+}
