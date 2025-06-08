@@ -29,7 +29,7 @@ struct ShareView: View {
         guard let item = context?.inputItems.first as? NSExtensionItem else { return }
         
         for provider in item.attachments ?? [] {
-            if provider.hasItemConformingToTypeIdentifier(UTType.webP.identifier) {
+            if provider.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
                 provider.loadItem(forTypeIdentifier: UTType.url.identifier, options: nil) {
                     data, _ in
                     if let url = data as? URL {
