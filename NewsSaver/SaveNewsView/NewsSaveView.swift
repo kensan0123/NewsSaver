@@ -62,6 +62,7 @@ struct NewsSaveView: View {
                             opinion: myopinion
                             )
                         modelContext.insert(newItem)
+                        try? modelContext.save()
                         isFocused = false
 //                        dismiss()
                     }
