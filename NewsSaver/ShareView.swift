@@ -16,7 +16,7 @@ struct ShareView: View {
     var body: some View {
         Group {
             if let url = sharedURL {
-                NewsSaveView(newsURL: url)
+                NewsSaveView(newsURL: url, extensionContext: context)
                     .modelContainer(for: NewsItem.self)
             } else {
                 Text("共有URLを読み込み中...")

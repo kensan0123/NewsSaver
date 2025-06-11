@@ -18,6 +18,7 @@ struct NewsSaveView: View {
     @FocusState var isFocused: Bool
     
     let newsURL: String
+    let extensionContext: NSExtensionContext?
     
     var body: some View {
         VStack {
@@ -64,6 +65,7 @@ struct NewsSaveView: View {
                         modelContext.insert(newItem)
                         try? modelContext.save()
                         isFocused = false
+                        extensionContext?.completeRequest(returningItems: nil)
                     }
                 }
                 .padding(.horizontal, 10)
@@ -96,5 +98,5 @@ struct NewsSaveView: View {
 }
 
 #Preview {
-    NewsSaveView(newsURL: "https://www.nikkei.com/article/DGXZQOGM05D2U0V00C25A6000000/")
+    NewsSaveView(newsURL: "https://www.nikkei.com/article/DGXZQOGM05D2U0V00C25A6000000/", extensionContext: nil)
 }
