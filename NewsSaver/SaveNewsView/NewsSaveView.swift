@@ -68,10 +68,11 @@ struct NewsSaveView: View {
                 }
                 .padding(.horizontal, 10)
             }
+            Divider()
             TextEditor(text: $myopinion)
                 .font(.subheadline)
                 .foregroundColor(.black)
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 10)
                 .focused($isFocused)
             Spacer()
         }

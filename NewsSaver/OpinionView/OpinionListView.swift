@@ -11,6 +11,9 @@ import SwiftData
 struct OpinionListView: View {
     @Query var newsItems: [NewsItem]
     @Environment(\.dismiss) var dismiss
+    @State private var isEditing: Bool = false
+    @State private var editedOpinion: String = ""
+    @FocusState private var isFocused: Bool
     
     let news: NewsItem
     var body: some View {
@@ -53,11 +56,43 @@ struct OpinionListView: View {
                     .padding(.horizontal, 30)
                     .padding(.vertical, 10)
             }
-            Text(news.opinion ?? "意見はありません")
-                .font(.body)
-                .padding(.vertical, 20)
-                .padding(.horizontal, 10)
-            Spacer()
+            if isEditing {
+                TextEditor(text: $editedOpinion)
+                    .font(.subheadline)
+                    .foregroundColor(.black)
+                    .padding(.horizontal, 10)
+                    .focused($isFocused)
+                    .onAppear {
+                        editedOpinion = news.opinion ?? ""
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            isFocused = true
+                        }
+                    }
+
+                Button("保存") {
+                    news.opinion = editedOpinion
+                    try? news.modelContext?.save()
+                    isEditing = false
+                }
+                .padding()
+            } else {
+                Divider()
+                ZStack(alignment: .topLeading) {
+                    Color.clear
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            isEditing = true
+                        }
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text(news.opinion ?? "意見はありません")
+                            .font(.body)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 10)
+                        Spacer()
+                    }
+                }
+            }
         }
         .navigationBarBackButtonHidden(true)
     }
