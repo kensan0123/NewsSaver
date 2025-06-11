@@ -64,7 +64,6 @@ struct NewsSaveView: View {
                         modelContext.insert(newItem)
                         try? modelContext.save()
                         isFocused = false
-//                        dismiss()
                     }
                 }
                 .padding(.horizontal, 10)

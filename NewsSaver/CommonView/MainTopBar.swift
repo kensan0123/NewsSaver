@@ -13,6 +13,7 @@ struct MainTopBar: View {
     var showSearchButton: Bool = false
     var onBackTapped: (() -> Void)? = nil
     var onSearchTapped: (() -> Void)? = nil
+    var onDocTapped: (() -> Void)? = nil
     
     var body: some View {
         HStack {
@@ -25,9 +26,13 @@ struct MainTopBar: View {
                         .padding(.leading)
                 }
             } else {
-                Image(systemName: "doc.text")
-                    .foregroundStyle(.white)
-                    .padding(.leading)
+                Button(action: {
+                    onDocTapped?()
+                }) {
+                    Image(systemName: "doc.text")
+                        .foregroundStyle(.white)
+                        .padding(.leading)
+                }
             }
             
             Spacer()

@@ -12,6 +12,7 @@ struct NewsListView: View {
     @Query var newsItems: [NewsItem]
     @State private var searchText: String = ""
     @State private var isSearching: Bool = false
+    @State private var navigateToIntro = false
     
     var filteredItems: [NewsItem] {
         if searchText.isEmpty {
@@ -28,6 +29,9 @@ struct NewsListView: View {
                     showSearchButton: true,
                     onSearchTapped: {
                         isSearching.toggle()
+                    },
+                    onDocTapped: {
+                        navigateToIntro.toggle()
                     }
                 )
                 .padding(.top)
@@ -64,6 +68,9 @@ struct NewsListView: View {
                     }
                 }
                 .listStyle(.plain)
+                .navigationDestination(isPresented: $navigateToIntro){
+                    IntroListView()
+                }
             }
         }
     }
