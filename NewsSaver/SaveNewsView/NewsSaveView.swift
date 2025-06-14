@@ -6,13 +6,20 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct NewsSaveView: View {
+    @Environment(\.modelContext) private var modelContext
+//    @Environment(\.dismiss) private var dismiss
+    
     @State private var previewTitle: String?
     @State private var previewThumbnail: UIImage?
     @State var myopinion: String = ""
     @FocusState var isFocused: Bool
-    let news: NewsItem
+    
+    let newsURL: String
+    let extensionContext: NSExtensionContext?
+    
     var body: some View {
         VStack {
             MainTopBar(
@@ -47,20 +54,33 @@ struct NewsSaveView: View {
             HStack {
                 Spacer()
                 Button("保存"){
-                    isFocused = false
+                    if let thumbnail = previewThumbnail,
+                       let imageData = thumbnail.jpegData(compressionQuality: 0.8){
+                        let newItem = NewsItem(
+                            title: previewTitle ?? "",
+                            date: Date(),
+                            imageData: imageData,
+                            opinion: myopinion
+                            )
+                        modelContext.insert(newItem)
+                        try? modelContext.save()
+                        isFocused = false
+                        extensionContext?.completeRequest(returningItems: nil)
+                    }
                 }
                 .padding(.horizontal, 10)
             }
+            Divider()
             TextEditor(text: $myopinion)
                 .font(.subheadline)
                 .foregroundColor(.black)
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 10)
                 .focused($isFocused)
             Spacer()
         }
         .onAppear {
             Task {
-                await getMetadata(url: "https://www.nikkei.com/article/DGXZQOGM05D2U0V00C25A6000000/")
+                await getMetadata(url: newsURL)
             }
         }
     }
@@ -78,10 +98,5 @@ struct NewsSaveView: View {
 }
 
 #Preview {
-    NewsSaveView(news: NewsItem(
-        title: "トヨタ、全固体電池で航続距離1000km達成へ",
-        date: Date(),
-        imageName: "thumbnail",
-        opinion: "これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。"
-    ))
+    NewsSaveView(newsURL: "https://www.nikkei.com/article/DGXZQOGM05D2U0V00C25A6000000/", extensionContext: nil)
 }

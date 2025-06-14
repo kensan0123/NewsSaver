@@ -9,8 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        NavigationStack {
-            NewsListView()
+        TabView {
+            Tab("My News", systemImage: "newspaper.fill") {
+                NewsListView()
+            }
+            Tab("Account", systemImage: "person.crop.circle.fill") {
+                ReviewCardView()
+            }
         }
     }
 }

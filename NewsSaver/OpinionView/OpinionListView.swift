@@ -6,9 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct OpinionListView: View {
+    @Query var newsItems: [NewsItem]
     @Environment(\.dismiss) var dismiss
+    @State private var isEditing: Bool = false
+    @State private var editedOpinion: String = ""
+    @FocusState private var isFocused: Bool
     
     let news: NewsItem
     var body: some View {
@@ -42,28 +47,65 @@ struct OpinionListView: View {
                     .padding(.horizontal, 15)
                 
             }
-            Image(news.imageName)
-                .resizable()
-                .scaledToFit()
-                .frame(maxWidth: .infinity)
-                .clipped()
-                .padding(.horizontal, 30)
-                .padding(.vertical, 10)
-            Text(news.opinion ?? "意見はありません")
-                .font(.body)
-                .padding(.vertical, 20)
-                .padding(.horizontal, 10)
-            Spacer()
+            if let uiImage = news.image {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: .infinity)
+                    .clipped()
+                    .padding(.horizontal, 30)
+                    .padding(.vertical, 10)
+            }
+            if isEditing {
+                TextEditor(text: $editedOpinion)
+                    .font(.subheadline)
+                    .foregroundColor(.black)
+                    .padding(.horizontal, 10)
+                    .focused($isFocused)
+                    .onAppear {
+                        editedOpinion = news.opinion ?? ""
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            isFocused = true
+                        }
+                    }
+
+                Button("保存") {
+                    news.opinion = editedOpinion
+                    try? news.modelContext?.save()
+                    isEditing = false
+                }
+                .padding()
+            } else {
+                Divider()
+                ZStack(alignment: .topLeading) {
+                    Color.clear
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            isEditing = true
+                        }
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text(news.opinion ?? "意見はありません")
+                            .font(.body)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 10)
+                        Spacer()
+                    }
+                }
+            }
         }
         .navigationBarBackButtonHidden(true)
     }
 }
 
 #Preview {
-    OpinionListView(news: NewsItem (
-        title: "トヨタ、全固体電池で航続距離1000km達成へ",
+    let sampleNews = NewsItem(
+        title: "サンプル記事",
         date: Date(),
-        imageName: "thumbnail",
-        opinion: "これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。これは私の意見です。"
-    ))
+        imageData: Data(),
+        opinion: "これは意見の例です。"
+    )
+
+    OpinionListView(news: sampleNews)
+        .modelContainer(for: NewsItem.self, inMemory: true)
 }
