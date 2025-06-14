@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A7726B62DFDA8B30099765D /* BigUIPaging in Frameworks */ = {isa = PBXBuildFile; productRef = 6A7726B52DFDA8B30099765D /* BigUIPaging */; };
 		6AF4FAC92DF3CE4A00C7B8CB /* ShareNewsToNewsSaver.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6AF4FABF2DF3CE4A00C7B8CB /* ShareNewsToNewsSaver.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -126,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A7726B62DFDA8B30099765D /* BigUIPaging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +199,7 @@
 			);
 			name = NewsSaver;
 			packageProductDependencies = (
+				6A7726B52DFDA8B30099765D /* BigUIPaging */,
 			);
 			productName = NewsSaver;
 			productReference = 6AA498A72DEE76060035D69D /* NewsSaver.app */;
@@ -305,6 +308,9 @@
 			);
 			mainGroup = 6AA4989E2DEE76060035D69D;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				6A7726B42DFDA8B30099765D /* XCRemoteSwiftPackageReference "BigUIPaging" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 6AA498A82DEE76060035D69D /* Products */;
 			projectDirPath = "";
@@ -747,6 +753,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6A7726B42DFDA8B30099765D /* XCRemoteSwiftPackageReference "BigUIPaging" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/notsobigcompany/BigUIPaging.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6A7726B52DFDA8B30099765D /* BigUIPaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6A7726B42DFDA8B30099765D /* XCRemoteSwiftPackageReference "BigUIPaging" */;
+			productName = BigUIPaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6AA4989F2DEE76060035D69D /* Project object */;
 }
