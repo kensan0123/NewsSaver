@@ -57,14 +57,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		6A6D926D2DF3D81E00ADABC7 /* Exceptions for "NewsSaver" folder in "NewsSaver" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 6AA498A62DEE76060035D69D /* NewsSaver */;
-		};
-		6A8D7D492DF5649500BBA6B0 /* Exceptions for "ShareNewsToNewsSaver" folder in "NewsSaver" target */ = {
+		6A77282E2DFDE18A0099765D /* Exceptions for "ShareNewsToNewsSaver" folder in "NewsSaver" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				ShareViewController.swift,
@@ -82,20 +75,12 @@
 			);
 			target = 6AF4FABE2DF3CE4A00C7B8CB /* ShareNewsToNewsSaver */;
 		};
-		6AF4FACA2DF3CE4A00C7B8CB /* Exceptions for "ShareNewsToNewsSaver" folder in "ShareNewsToNewsSaver" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 6AF4FABE2DF3CE4A00C7B8CB /* ShareNewsToNewsSaver */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		6AA498A92DEE76060035D69D /* NewsSaver */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				6A6D926D2DF3D81E00ADABC7 /* Exceptions for "NewsSaver" folder in "NewsSaver" target */,
 				6A8D7D4F2DF56E1200BBA6B0 /* Exceptions for "NewsSaver" folder in "ShareNewsToNewsSaver" target */,
 			);
 			path = NewsSaver;
@@ -114,8 +99,7 @@
 		6AF4FAC02DF3CE4A00C7B8CB /* ShareNewsToNewsSaver */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				6A8D7D492DF5649500BBA6B0 /* Exceptions for "ShareNewsToNewsSaver" folder in "NewsSaver" target */,
-				6AF4FACA2DF3CE4A00C7B8CB /* Exceptions for "ShareNewsToNewsSaver" folder in "ShareNewsToNewsSaver" target */,
+				6A77282E2DFDE18A0099765D /* Exceptions for "ShareNewsToNewsSaver" folder in "NewsSaver" target */,
 			);
 			path = ShareNewsToNewsSaver;
 			sourceTree = "<group>";
