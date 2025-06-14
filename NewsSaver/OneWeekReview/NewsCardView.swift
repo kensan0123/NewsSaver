@@ -11,6 +11,7 @@ import SwiftData
 struct NewsCardView: View {
     let news: NewsItem
     var body: some View {
+        
         VStack(alignment: .leading, spacing: 0) {
             Text(news.title)
                 .font(.headline)
