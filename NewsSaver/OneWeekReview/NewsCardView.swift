@@ -10,6 +10,7 @@ import SwiftData
 
 struct NewsCardView: View {
     let news: NewsItem
+    let continued: Bool
     
     private let rowHeight: CGFloat = 150
     private let font = UIFont(name: "HiraMinProN-W6", size: 20) ?? .systemFont(ofSize: 20)
@@ -20,9 +21,12 @@ struct NewsCardView: View {
             VStack(alignment: .leading, spacing: 0) {
                 Text(news.title)
                     .font(.system(size: 24, weight: .bold, design: .default))
-                    .padding(.bottom, 5)
+                    .padding(10)
+                    .foregroundStyle(continued ? Color.white : Color.black)
+                    .background(continued ? Color.black : nil)
+                    .frame(width: .infinity, height: 100)
                 
-                HStack(spacing: 0) {
+                HStack(alignment: .top, spacing: 0) {
                     if let uiImage = news.image {
                         Image(uiImage: uiImage)
                             .resizable()
@@ -72,6 +76,6 @@ struct NewsCardView: View {
         imageData: Data(),
         opinion: "これは意見の例です。"
     )
-    NewsCardView(news: sampleNews)
+    NewsCardView(news: sampleNews, continued: true)
         .modelContainer(for: NewsItem.self, inMemory: true)
 }

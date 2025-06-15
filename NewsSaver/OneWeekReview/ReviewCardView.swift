@@ -13,20 +13,37 @@ struct ReviewCardView: View {
     @Query var newsItems: [NewsItem]
     @Environment(\.dismiss) var dismiss
     @State private var selectedIndex : Int = 0
+    
+    private var isContinued: Bool {
+        newsItems.hasSevenDaysContinue(days: 7)
+    }
+    
+    private var weeklyNews: [NewsItem] {
+        let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
+        return newsItems
+            .filter { $0.date >= oneWeekAgo }
+            .sorted { $0.date < $1.date }
+    }
     var body: some View {
         VStack{
             MainTopBar(title: "Review", showBackButton: true, showSearchButton: false, onBackTapped: {dismiss()})
                 .padding(.top)
             Spacer()
-            if newsItems.isEmpty {
+            switch (newsItems.isEmpty, weeklyNews.isEmpty) {
+            case (true, _):
                 Text("保存されたニュースはありません")
                     .font(.headline)
                     .padding()
                 Spacer()
-            } else {
+            case (false, true):
+                Text("1週間以内で保存されたニュースはありません")
+                    .font(.headline)
+                    .padding()
+                Spacer()
+            case(false, false):
                 PageView(selection: $selectedIndex) {
-                    ForEach(newsItems.indices, id: \.self) { i in
-                        NewsCardView(news: newsItems[i])
+                    ForEach(weeklyNews.indices, id: \.self) { i in
+                        NewsCardView(news: weeklyNews[i], continued: isContinued)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .clipShape(RoundedRectangle(cornerRadius: 20))
                             .padding()
@@ -34,7 +51,7 @@ struct ReviewCardView: View {
                     }
                 }
                 .pageViewStyle(.cardDeck)
-            }
+                }
         }
         .navigationBarBackButtonHidden(true)
     }
