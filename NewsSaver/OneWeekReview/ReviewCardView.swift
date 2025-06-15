@@ -17,20 +17,25 @@ struct ReviewCardView: View {
             MainTopBar(title: "Review", showBackButton: true, showSearchButton: false)
                 .padding(.top)
             Spacer()
-            PageView(selection: $selectedIndex) {
-                ForEach(newsItems.indices, id: \.self) { i in
-                    NewsCardView(news: newsItems[i])
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                        .padding()
-                        .background(Color.gray.opacity(1))
+            if newsItems.isEmpty {
+                Text("保存されたニュースはありません")
+                    .font(.headline)
+                    .padding()
+            } else {
+                PageView(selection: $selectedIndex) {
+                    ForEach(newsItems.indices, id: \.self) { i in
+                        NewsCardView(news: newsItems[i])
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                            .padding()
+                            .background(Color.gray.opacity(1))
+                    }
                 }
+                .pageViewStyle(.cardDeck)
             }
-            .pageViewStyle(.cardDeck)
         }
     }
 }
-
 #Preview {
     ReviewCardView()
         .modelContainer(for: NewsItem.self, inMemory: true)
