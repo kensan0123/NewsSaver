@@ -14,6 +14,9 @@ struct ReviewCardView: View {
     @Environment(\.dismiss) var dismiss
     @State private var selectedIndex : Int = 0
     
+    @State private var shareImage: UIImage?
+    @State private var isShowingShareSheet: Bool = false
+    
     private var isContinued: Bool {
         newsItems.hasSevenDaysContinue(days: 7)
     }
@@ -26,7 +29,7 @@ struct ReviewCardView: View {
     }
     var body: some View {
         VStack{
-            MainTopBar(title: "Review", showBackButton: true, showSearchButton: false, onBackTapped: {dismiss()})
+            MainTopBar(title: "Review", showBackButton: true, showSearchButton: false, onBackTapped: {dismiss()}, showShareButton: true, onShareTapped: {shareCard()})
                 .padding(.top)
             Spacer()
             switch (newsItems.isEmpty, weeklyNews.isEmpty) {
@@ -53,7 +56,22 @@ struct ReviewCardView: View {
                 .pageViewStyle(.cardDeck)
                 }
         }
+        .sheet(isPresented: $isShowingShareSheet) {
+            if let image = shareImage {
+                ShareSheet(activityItems: [image])
+            }
+        }
         .navigationBarBackButtonHidden(true)
+    }
+    @MainActor
+    private func shareCard() {
+        guard !weeklyNews.isEmpty else { return }
+        let cardView = NewsCardView(news: weeklyNews[selectedIndex], continued: isContinued)
+        let targetSize = CGSize(width: 400, height: 640)
+        if let img = cardView.uiSnapshot(size: targetSize, yOffset: 60) {
+            shareImage = img
+            isShowingShareSheet.toggle()
+        }
     }
 }
 #Preview {

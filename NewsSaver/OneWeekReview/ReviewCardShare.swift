@@ -6,13 +6,20 @@
 //
 
 import SwiftUI
+import UIKit
 
 @MainActor
 extension View {
-    func snapshot(size: CGSize, scale: CGFloat = UIScreen.main.scale) -> UIImage? {
-        let renderer = ImageRenderer(content: self.frame(width: size.width, height: size.height))
-        renderer.scale = scale
-        return renderer.uiImage
+    func uiSnapshot(size: CGSize, yOffset: CGFloat = 0, afterUpdates: Bool = true) -> UIImage? {
+        let host = UIHostingController(rootView: self)
+        host.view.bounds = CGRect(origin: .zero, size: size)
+        host.view.backgroundColor = .clear
+        
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { ctx in
+            ctx.cgContext.translateBy(x: 0, y: -yOffset)
+            host.view.drawHierarchy(in: host.view.bounds, afterScreenUpdates: afterUpdates)
+        }
     }
 }
 
