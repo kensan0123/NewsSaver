@@ -44,21 +44,28 @@ struct NewsListView: View {
                 if isSearching {
                     searchBox
                 }
-                List {
-                    ForEach(filteredItems, id: \.persistentModelID) { item in
-                        NavigationLink{OpinionListView(news: item)} label: {
-                            NewsRowView(news: item)
+                if newsItems.isEmpty {
+                    Text("保存されたニュースはありません")
+                        .font(.headline)
+                        .padding()
+                    Spacer()
+                } else {
+                    List {
+                        ForEach(filteredItems, id: \.persistentModelID) { item in
+                            NavigationLink{OpinionListView(news: item)} label: {
+                                NewsRowView(news: item)
+                            }
+                        }
+                        .onDelete{ offsets in
+                            itemsToDelete = offsets.map {filteredItems[$0]}
+                            showDeleteAlert = true
                         }
                     }
-                    .onDelete{ offsets in
-                        itemsToDelete = offsets.map {filteredItems[$0]}
-                        showDeleteAlert = true
-                    }
+                    .listStyle(.plain)
                 }
-                .listStyle(.plain)
-                .navigationDestination(isPresented: $navigateToIntro){
-                    IntroListView()
-                }
+            }
+            .navigationDestination(isPresented: $navigateToIntro){
+                IntroListView()
             }
             .alert("このニュースを削除しますか？", isPresented: $showDeleteAlert) {
                 Button("削除", role: .destructive) {
