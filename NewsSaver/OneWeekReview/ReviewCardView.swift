@@ -29,7 +29,7 @@ struct ReviewCardView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .clipShape(RoundedRectangle(cornerRadius: 20))
                             .padding()
-                            .background(Color.gray.opacity(1))
+                            .background(Color(red: 0.90, green: 0.90, blue: 0.90))
                     }
                 }
                 .pageViewStyle(.cardDeck)

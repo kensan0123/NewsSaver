@@ -16,7 +16,7 @@ struct NewsRowView: View {
             if let uiImage = news.image {
                 Image(uiImage: uiImage)
                     .resizable()
-                    .scaledToFill()
+                    .scaledToFit()
                     .frame(width: 120, height: 80)
                     .clipped()
                     .alignmentGuide(.top) { d in d[.top] }

@@ -29,17 +29,16 @@ struct NewsCardView: View {
                 }
                 
                 TategakiText(text: news.opinion)
-                    .frame(maxWidth: .infinity, maxHeight: 150, alignment: .topTrailing)
-                    .padding(.bottom, 5)
+                    .frame(width: .infinity, height: 150, alignment: .topTrailing)
+                    .padding(.bottom, 10)
             }
             TategakiText(text: news.opinion)
-                .frame(maxWidth: .infinity, maxHeight: 160)
-                .padding(.bottom, 5)
+                .frame(width: .infinity, height: 150)
+                .padding(.bottom, 10)
             TategakiText(text: news.opinion)
-                .frame(maxWidth: .infinity, maxHeight: 160)
+                .frame(width: .infinity, height: 150)
         }
         .padding()
-        .background(Color.gray.opacity(0.2))
         .clipShape(RoundedRectangle(cornerRadius: 12))
         
     }
