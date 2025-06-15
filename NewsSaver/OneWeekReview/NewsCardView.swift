@@ -17,19 +17,26 @@ struct NewsCardView: View {
                 .font(.system(size: 24, weight: .bold, design: .default))
                 .padding(.bottom, 5)
             
-            HStack {
+            HStack(spacing: 0) {
                 if let uiImage = news.image {
                     Image(uiImage: uiImage)
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
                         .scaledToFit()
-                        .frame(maxWidth: 250)
-                        .padding(.horizontal, 30)
+                        .frame(maxWidth:200, maxHeight: 150)
                         .clipped()
-                        .padding(.vertical, 10)
+                        .padding(5)
+                        .layoutPriority(1)
                 }
+                
+                TategakiText(text: news.opinion)
+                    .frame(maxWidth: .infinity, maxHeight: 150, alignment: .topTrailing)
+                    .padding(.bottom, 5)
             }
             TategakiText(text: news.opinion)
+                .frame(maxWidth: .infinity, maxHeight: 160)
+                .padding(.bottom, 5)
+            TategakiText(text: news.opinion)
+                .frame(maxWidth: .infinity, maxHeight: 160)
         }
         .padding()
         .background(Color.gray.opacity(0.2))
