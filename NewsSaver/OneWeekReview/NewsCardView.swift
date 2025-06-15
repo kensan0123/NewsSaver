@@ -14,7 +14,7 @@ struct NewsCardView: View {
         
         VStack(alignment: .leading, spacing: 0) {
             Text(news.title)
-                .font(.headline)
+                .font(.system(size: 24, weight: .bold, design: .default))
                 .padding(.bottom, 5)
             
             HStack {
@@ -22,14 +22,14 @@ struct NewsCardView: View {
                     Image(uiImage: uiImage)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 120, height: 80)
+                        .scaledToFit()
+                        .frame(maxWidth: 250)
+                        .padding(.horizontal, 30)
                         .clipped()
+                        .padding(.vertical, 10)
                 }
-                Text(news.opinion ?? "")
             }
-            Text(news.opinion ?? "")
-            Divider()
-            Text(news.opinion ?? "")
+            TategakiText(text: news.opinion)
         }
         .padding()
         .background(Color.gray.opacity(0.2))
