@@ -22,6 +22,7 @@ struct ReviewCardView: View {
                 Text("保存されたニュースはありません")
                     .font(.headline)
                     .padding()
+                Spacer()
             } else {
                 PageView(selection: $selectedIndex) {
                     ForEach(newsItems.indices, id: \.self) { i in

@@ -29,7 +29,6 @@ struct NewsCardView: View {
                             .scaledToFit()
                             .frame(maxWidth:200, maxHeight: rowHeight)
                             .clipped()
-                            .padding(5)
                             .layoutPriority(1)
                     }
                     
