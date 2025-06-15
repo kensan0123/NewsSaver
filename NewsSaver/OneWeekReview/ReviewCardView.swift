@@ -11,10 +11,11 @@ import SwiftData
 
 struct ReviewCardView: View {
     @Query var newsItems: [NewsItem]
+    @Environment(\.dismiss) var dismiss
     @State private var selectedIndex : Int = 0
     var body: some View {
         VStack{
-            MainTopBar(title: "Review", showBackButton: true, showSearchButton: false)
+            MainTopBar(title: "Review", showBackButton: true, showSearchButton: false, onBackTapped: {dismiss()})
                 .padding(.top)
             Spacer()
             if newsItems.isEmpty {
@@ -34,6 +35,7 @@ struct ReviewCardView: View {
                 .pageViewStyle(.cardDeck)
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 #Preview {

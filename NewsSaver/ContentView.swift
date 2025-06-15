@@ -14,7 +14,7 @@ struct ContentView: View {
                 NewsListView()
             }
             Tab("Account", systemImage: "person.crop.circle.fill") {
-                ReviewCardView()
+                AccountListView()
             }
         }
     }
