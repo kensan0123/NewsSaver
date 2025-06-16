@@ -22,9 +22,6 @@ struct AccountListView: View {
                         .foregroundStyle(.black)
                 }
                 List {
-                    NavigationLink("ステータス") {
-                        
-                    }
                     NavigationLink("１週間の振り返り") {
                         ReviewCardView()
                     }

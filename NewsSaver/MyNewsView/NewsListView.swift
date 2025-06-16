@@ -19,6 +19,8 @@ struct NewsListView: View {
     @State private var showDeleteAlert: Bool = false
     @State private var itemsToDelete: [NewsItem] = []
     
+    @State private var showAddNewsSheet: Bool = false
+    
     var filteredItems: [NewsItem] {
         if searchText.isEmpty {
             return newsItems
@@ -64,6 +66,21 @@ struct NewsListView: View {
                     .listStyle(.plain)
                 }
             }
+            .overlay(alignment: .bottomTrailing) {
+                Button {
+                    showAddNewsSheet = true
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.system(size: 24, weight: .bold))
+                        .foregroundStyle(Color.white)
+                        .frame(width: 56, height: 56)
+                        .background(Color.accentColor)
+                        .clipShape(Circle())
+                        .shadow(radius: 4, y: 2)
+                }
+                .padding(.bottom, 24)
+                .padding(.trailing, 20)
+            }
             .navigationDestination(isPresented: $navigateToIntro){
                 IntroListView()
             }
@@ -78,6 +95,7 @@ struct NewsListView: View {
                 Text("保存したニュースを削除しますか？")
             }
         }
+        .sheet(isPresented: $showAddNewsSheet) { ShareFromManualView()}
     }
     private var searchBox: some View {
         TextField("Search", text: $searchText)

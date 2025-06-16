@@ -78,6 +78,7 @@ struct NewsSaveView: View {
                 .focused($isFocused)
             Spacer()
         }
+        .navigationBarBackButtonHidden(true)
         .onAppear {
             Task {
                 await getMetadata(url: newsURL)
