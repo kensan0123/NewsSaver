@@ -10,9 +10,17 @@ import SwiftData
 
 @main
 struct NewsSaverApp: App {
+    @AppStorage("hasLaunchedBefore") private var hasLaunchedBefore = false
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if !hasLaunchedBefore {
+                FirstIntroView()
+            } else {
+                ContentView()
+                    .onAppear {
+                        hasLaunchedBefore = true
+                    }
+            }
         }
         .modelContainer(for: NewsItem.self)
     }

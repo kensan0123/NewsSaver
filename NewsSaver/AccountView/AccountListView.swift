@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct AccountListView: View {
+    @State private var navigateToIntro = false
     var body: some View {
         NavigationStack {
             VStack {
-                MainTopBar(title: "Account")
+                MainTopBar(title: "Account", showBackButton: false, onDocTapped: { navigateToIntro.toggle() })
                     .padding(.top)
                 Spacer()
                 HStack {
@@ -26,6 +27,9 @@ struct AccountListView: View {
                         ReviewCardView()
                     }
                 }
+            }
+            .navigationDestination(isPresented: $navigateToIntro){
+                IntroListView()
             }
         }
     }

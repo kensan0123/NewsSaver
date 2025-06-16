@@ -12,7 +12,7 @@ struct IntroListView: View {
     @Environment(\.dismiss) var dismiss
     let introPages = [
         IntroPageModel(headerTitle: "手順１：「共有」から「その他」を選択",imageName: "other_intro"),
-        IntroPageModel(headerTitle: "手順２：「NewsSaver」を選択",imageName: "news_saver_intro"),
+        IntroPageModel(headerTitle: "手順２：「NewsSaver」を選択",imageName: "add_intro"),
     ]
     var body: some View {
         VStack(spacing: 0) {
