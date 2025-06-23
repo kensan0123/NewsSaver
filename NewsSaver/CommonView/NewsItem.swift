@@ -15,12 +15,14 @@ class NewsItem {
     var date: Date
     var imageData: Data?
     var opinion: String?
+    var newsURL: String?
     
-    init(title: String, date: Date, imageData: Data, opinion: String?) {
+    init(title: String, date: Date, imageData: Data, opinion: String?, newsURL: String?) {
         self.title = title
         self.date = date
         self.imageData = imageData
         self.opinion = opinion
+        self.newsURL = newsURL
     }
     
     var image :UIImage? {

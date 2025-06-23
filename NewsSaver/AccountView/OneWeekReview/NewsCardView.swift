@@ -74,7 +74,8 @@ struct NewsCardView: View {
         title: "タイトル",
         date: Date(),
         imageData: Data(),
-        opinion: "これは意見の例です。"
+        opinion: "これは意見の例です。",
+        newsURL: "https://l.smartnews.com/m-m0MNQIg/9Hwuu4"
     )
     NewsCardView(news: sampleNews, continued: true)
         .modelContainer(for: NewsItem.self, inMemory: true)

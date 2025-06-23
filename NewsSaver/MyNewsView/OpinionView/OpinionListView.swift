@@ -93,6 +93,7 @@ struct OpinionListView: View {
                     }
                 }
             }
+            NewsLinkButton(newsURL: news.newsURL ?? "")
         }
         .navigationBarBackButtonHidden(true)
     }
@@ -103,7 +104,8 @@ struct OpinionListView: View {
         title: "サンプル記事",
         date: Date(),
         imageData: Data(),
-        opinion: "これは意見の例です。"
+        opinion: "これは意見の例です。",
+        newsURL: "https://l.smartnews.com/m-m0MNQIg/9Hwuu4"
     )
 
     OpinionListView(news: sampleNews)

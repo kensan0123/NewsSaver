@@ -60,7 +60,8 @@ struct NewsSaveView: View {
                             title: previewTitle ?? "",
                             date: Date(),
                             imageData: imageData,
-                            opinion: myopinion
+                            opinion: myopinion,
+                            newsURL: newsURL
                             )
                         modelContext.insert(newItem)
                         try? modelContext.save()

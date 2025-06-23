@@ -9,7 +9,8 @@ import SwiftUI
 import SwiftData
 
 struct NewsListView: View {
-    @Query var newsItems: [NewsItem]
+    @Query(sort: \NewsItem.date, order: .reverse)
+    var newsItems: [NewsItem]
     @Environment(\.modelContext) private var modelContext
     
     @State private var searchText: String = ""
