@@ -14,6 +14,8 @@ struct MainTopBar: View {
     var onBackTapped: (() -> Void)? = nil
     var onSearchTapped: (() -> Void)? = nil
     var onDocTapped: (() -> Void)? = nil
+    var showShareButton: Bool = false
+    var onShareTapped: (() -> Void)? = nil
     
     var body: some View {
         HStack {
@@ -45,6 +47,14 @@ struct MainTopBar: View {
                     onSearchTapped?()
                 }) {
                     Image(systemName: "magnifyingglass")
+                        .foregroundStyle(.white)
+                        .padding(.trailing)
+                }
+            } else if showShareButton {
+                Button(action: {
+                    onShareTapped?()
+                }) {
+                    Image(systemName: "square.and.arrow.up")
                         .foregroundStyle(.white)
                         .padding(.trailing)
                 }

@@ -9,7 +9,8 @@ import SwiftUI
 import SwiftData
 
 struct NewsListView: View {
-    @Query var newsItems: [NewsItem]
+    @Query(sort: \NewsItem.date, order: .reverse)
+    var newsItems: [NewsItem]
     @Environment(\.modelContext) private var modelContext
     
     @State private var searchText: String = ""
@@ -18,6 +19,8 @@ struct NewsListView: View {
     // 削除用
     @State private var showDeleteAlert: Bool = false
     @State private var itemsToDelete: [NewsItem] = []
+    
+    @State private var showAddNewsSheet: Bool = false
     
     var filteredItems: [NewsItem] {
         if searchText.isEmpty {
@@ -44,21 +47,43 @@ struct NewsListView: View {
                 if isSearching {
                     searchBox
                 }
-                List {
-                    ForEach(filteredItems, id: \.persistentModelID) { item in
-                        NavigationLink{OpinionListView(news: item)} label: {
-                            NewsRowView(news: item)
+                if newsItems.isEmpty {
+                    Text("保存されたニュースはありません")
+                        .font(.headline)
+                        .padding()
+                    Spacer()
+                } else {
+                    List {
+                        ForEach(filteredItems, id: \.persistentModelID) { item in
+                            NavigationLink{OpinionListView(news: item)} label: {
+                                NewsRowView(news: item)
+                            }
+                        }
+                        .onDelete{ offsets in
+                            itemsToDelete = offsets.map {filteredItems[$0]}
+                            showDeleteAlert = true
                         }
                     }
-                    .onDelete{ offsets in
-                        itemsToDelete = offsets.map {filteredItems[$0]}
-                        showDeleteAlert = true
-                    }
+                    .listStyle(.plain)
                 }
-                .listStyle(.plain)
-                .navigationDestination(isPresented: $navigateToIntro){
-                    IntroListView()
+            }
+            .overlay(alignment: .bottomTrailing) {
+                Button {
+                    showAddNewsSheet = true
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.system(size: 24, weight: .bold))
+                        .foregroundStyle(Color.white)
+                        .frame(width: 56, height: 56)
+                        .background(Color.accentColor)
+                        .clipShape(Circle())
+                        .shadow(radius: 4, y: 2)
                 }
+                .padding(.bottom, 24)
+                .padding(.trailing, 20)
+            }
+            .navigationDestination(isPresented: $navigateToIntro){
+                IntroListView()
             }
             .alert("このニュースを削除しますか？", isPresented: $showDeleteAlert) {
                 Button("削除", role: .destructive) {
@@ -71,6 +96,7 @@ struct NewsListView: View {
                 Text("保存したニュースを削除しますか？")
             }
         }
+        .sheet(isPresented: $showAddNewsSheet) { ShareFromManualView()}
     }
     private var searchBox: some View {
         TextField("Search", text: $searchText)

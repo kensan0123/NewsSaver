@@ -8,21 +8,28 @@
 import SwiftUI
 
 struct AccountListView: View {
+    @State private var navigateToIntro = false
     var body: some View {
-        VStack {
-            MainTopBar(title: "Account")
-                .padding(.top)
-            Spacer()
-            HStack {
-                Image(systemName: "person.crop.circle.fill")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width:100, height: 100)
-                    .foregroundStyle(.black)
+        NavigationStack {
+            VStack {
+                MainTopBar(title: "Account", showBackButton: false, onDocTapped: { navigateToIntro.toggle() })
+                    .padding(.top)
+                Spacer()
+                HStack {
+                    Image(systemName: "person.crop.circle.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width:100, height: 100)
+                        .foregroundStyle(.black)
+                }
+                List {
+                    NavigationLink("１週間の振り返り") {
+                        ReviewCardView()
+                    }
+                }
             }
-            List {
-                Text("ステータス")
-                Text("１週間の振り返り")
+            .navigationDestination(isPresented: $navigateToIntro){
+                IntroListView()
             }
         }
     }

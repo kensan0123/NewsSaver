@@ -60,7 +60,8 @@ struct NewsSaveView: View {
                             title: previewTitle ?? "",
                             date: Date(),
                             imageData: imageData,
-                            opinion: myopinion
+                            opinion: myopinion,
+                            newsURL: newsURL
                             )
                         modelContext.insert(newItem)
                         try? modelContext.save()
@@ -71,13 +72,24 @@ struct NewsSaveView: View {
                 .padding(.horizontal, 10)
             }
             Divider()
-            TextEditor(text: $myopinion)
-                .font(.subheadline)
-                .foregroundColor(.black)
-                .padding(.horizontal, 10)
-                .focused($isFocused)
+            ZStack(alignment: .topLeading) {
+                TextEditor(text: $myopinion)
+                    .font(.subheadline)
+                    .foregroundColor(.black)
+                    .padding(.horizontal, 10)
+                    .focused($isFocused)
+
+                if myopinion.isEmpty {
+                    Text("タップしてコメントを入力してください。")
+                        .foregroundColor(.gray)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 12)
+                }
+            }
+            .frame(maxHeight: 150)
             Spacer()
         }
+        .navigationBarBackButtonHidden(true)
         .onAppear {
             Task {
                 await getMetadata(url: newsURL)
