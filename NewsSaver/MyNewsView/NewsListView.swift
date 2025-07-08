@@ -58,10 +58,14 @@ struct NewsListView: View {
                             NavigationLink{OpinionListView(news: item)} label: {
                                 NewsRowView(news: item)
                             }
-                        }
-                        .onDelete{ offsets in
-                            itemsToDelete = offsets.map {filteredItems[$0]}
-                            showDeleteAlert = true
+                            .contextMenu{
+                                Button(role: .destructive) {
+                                    itemsToDelete = [item]
+                                    showDeleteAlert = true
+                                } label : {
+                                    Label("削除", systemImage: "trash")
+                                }
+                            }
                         }
                     }
                     .listStyle(.plain)
