@@ -76,7 +76,6 @@
 			membershipExceptions = (
 				CommonView/MainTopBar.swift,
 				CommonView/NewsItem.swift,
-				CommonView/SegmentControlView.swift,
 				SaveNewsView/NewsSaveView.swift,
 				SaveNewsView/NewsURLHandle.swift,
 				ShareView.swift,
