@@ -10,7 +10,8 @@ import SwiftUI
 import Foundation
 
 @Model
-class NewsItem {
+final class NewsItem {
+    @Attribute(.unique) var id: UUID = UUID()
     var title: String
     var date: Date
     var imageData: Data?

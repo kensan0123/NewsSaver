@@ -112,7 +112,7 @@ struct OpinionListView: View {
         date: Date(),
         imageData: Data(),
         opinion: "これは意見の例です。",
-        newsURL: "https://l.smartnews.com/m-m0MNQIg/9Hwuu4"
+        newsURL: "https://l.smartnews.com/m-m0MNQIg/9Hwuu4", category: ""
     )
 
     OpinionListView(news: sampleNews)
