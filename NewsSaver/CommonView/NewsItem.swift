@@ -11,7 +11,7 @@ import Foundation
 
 @Model
 final class NewsItem {
-    @Attribute(.unique) var id: UUID = UUID()
+    @Attribute(.unique) var id: UUID?
     var title: String
     var date: Date
     var imageData: Data?
