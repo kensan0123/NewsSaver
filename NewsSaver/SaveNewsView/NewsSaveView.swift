@@ -10,7 +10,6 @@ import SwiftData
 
 struct NewsSaveView: View {
     @Environment(\.modelContext) private var modelContext
-//    @Environment(\.dismiss) private var dismiss
     
     @State private var previewTitle: String?
     @State private var previewThumbnail: UIImage?
