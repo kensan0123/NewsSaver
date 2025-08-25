@@ -11,7 +11,7 @@ struct ContentView: View {
     var body: some View {
         TabView {
             Tab("My News", systemImage: "newspaper.fill") {
-                NewsListView()
+                ShareView(newsURL: "https://apple.com")
             }
             Tab("Account", systemImage: "person.crop.circle.fill") {
                 AccountListView()

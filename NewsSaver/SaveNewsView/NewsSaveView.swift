@@ -24,7 +24,7 @@ struct NewsSaveView: View {
             MainTopBar(
                 title: "Save",
                 showBackButton: true,
-                showSearchButton: false,
+                showSearchButton: false
             )
             .padding(.top)
             HStack {
